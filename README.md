@@ -23,10 +23,10 @@ Probado con:
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/USUARIO_REAL/REPO_REAL.git
-cd REPO_REAL
+git git@github.com:Leticia-GA/productbadges.git
+cd productbadges
 ```
-⚠️ Importante: asegúrate de ejecutar este comando en la carpeta donde se encuentra el archivo `docker-compose.yml`.
+⚠️ Asegúrate de ejecutar este comando en la carpeta donde se encuentra el archivo `docker-compose.yml`.
 
 ### 2. Levantar entorno Docker
 ```bash
