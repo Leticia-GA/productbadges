@@ -69,31 +69,48 @@ class ProductBadges extends Module
 
     public function hookDisplayAdminProductsExtra($params)
     {
-        $idProduct = (int)Tools::getValue('id_product');
+        $idProduct = (int)$params['id_product'];
 
-        return '<div class="panel">
-                    <h3>Product Badges WORKING</h3>
-                    Product ID: ' . $idProduct . '
-                </div>';
+        $badges = Db::getInstance()->executeS('
+            SELECT *
+            FROM ' . _DB_PREFIX_ . 'product_badge
+            WHERE active = 1
+        ');
+
+        $rows = Db::getInstance()->executeS('
+            SELECT id_badge
+            FROM ' . _DB_PREFIX_ . 'product_badges
+            WHERE id_product = ' . (int)$idProduct
+        );
+
+        $this->context->smarty->assign([
+            'badges' => $badges,
+            'assigned' => array_flip(array_column($rows, 'id_badge')),
+        ]);
+
+        return $this->display(
+            __FILE__,
+            'views/templates/admin/product_badges.tpl'
+        );
     }
 
     public function hookActionProductSave($params)
     {
         $idProduct = (int)$params['id_product'];
 
-        if (!Tools::isSubmit('submitProductBadges')) {
-            return;
-        }
-
-        $selected = Tools::getValue('badges', []);
+        $badges = Tools::getValue('productbadges', []);
 
         Db::getInstance()->delete(
-            'product_badge',
+            'product_badges',
             'id_product = ' . (int)$idProduct
         );
 
-        foreach ($selected as $idBadge) {
-            Db::getInstance()->insert('product_badge', [
+        if (!is_array($badges)) {
+            return;
+        }
+
+        foreach ($badges as $idBadge) {
+            Db::getInstance()->insert('product_badges', [
                 'id_product' => (int)$idProduct,
                 'id_badge' => (int)$idBadge,
             ]);

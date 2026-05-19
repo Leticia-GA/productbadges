@@ -1,15 +1,40 @@
 <div class="panel">
     <h3>Product Badges</h3>
 
-    {foreach from=$badges item=badge}
-        <label style="display:block; margin-bottom:5px;">
-            <input type="checkbox"
-                   name="badges[]"
-                   value="{$badge.id_badge}"
-                   {if in_array($badge.id_badge, $assigned)}checked{/if}>
-            {$badge.bg_color} / {$badge.text_color} ({$badge.position})
-        </label>
-    {foreachelse}
-        <p>No badges available. <a href="{$link->getAdminLink('AdminProductBadges')}">Create one</a>.</p>
-    {/foreach}
+    {if $badges|count}
+
+        {foreach from=$badges item=badge}
+
+            <div class="checkbox">
+                <label>
+
+                    <input type="checkbox"
+                           name="productbadges[]"
+                           value="{$badge.id_badge|intval}"
+
+                   {if isset($assigned[$badge.id_badge|intval])}
+                       checked="checked"
+                   {/if}
+                    >
+
+                    <span style="
+                        background: {$badge.bg_color|escape:'html':'UTF-8'};
+                        color: {$badge.text_color|escape:'html':'UTF-8'};
+                        padding: 3px 8px;
+                        border-radius: 4px;
+                        display:inline-block;
+                    ">
+                        Badge #{$badge.id_badge|intval}
+                    </span>
+
+                </label>
+            </div>
+
+        {/foreach}
+
+    {else}
+
+        <p>No badges available.</p>
+
+    {/if}
 </div>
