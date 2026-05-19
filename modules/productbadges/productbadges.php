@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/classes/ProductBadge.php';
+
 if (!defined('_PS_VERSION_')) {
     exit;
 }
@@ -24,14 +26,16 @@ class ProductBadges extends Module
     public function install()
     {
         return parent::install()
-            && $this->installDB();
+            && $this->installDB()
+            && $this->registerHook('displayHeader')
+            && $this->installTab();
     }
 
     private function installDB()
     {
         include dirname(__FILE__) . '/sql/install.php';
 
-        return true;
+        return $result;
     }
 
     public function uninstall()
@@ -44,6 +48,21 @@ class ProductBadges extends Module
     {
         include dirname(__FILE__) . '/sql/uninstall.php';
 
-        return true;
+        return $result;
+    }
+
+    private function installTab()
+    {
+        $tab = new Tab();
+        $tab->active = 1;
+        $tab->class_name = 'AdminProductBadges';
+        $tab->module = $this->name;
+        $tab->id_parent = (int) Tab::getIdFromClassName('IMPROVE');
+
+        foreach (Language::getLanguages(true) as $lang) {
+            $tab->name[$lang['id_lang']] = 'Product Badges';
+        }
+
+        return $tab->add();
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 $sql = [];
+$result = true;
 
 $sql[] = "CREATE TABLE IF NOT EXISTS `" . _DB_PREFIX_ . "product_badge` (
     `id_badge` INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -19,6 +20,14 @@ $sql[] = "CREATE TABLE IF NOT EXISTS `" . _DB_PREFIX_ . "product_badges` (
 ) ENGINE=" . _MYSQL_ENGINE_ . " DEFAULT CHARSET=utf8mb4;
 ";
 
+$sql[] = "CREATE TABLE IF NOT EXISTS `" . _DB_PREFIX_ . "product_badges_lang` (
+    `id_badge` INT UNSIGNED NOT NULL,
+    `id_lang` INT UNSIGNED NOT NULL,
+    `text` VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id_badge, id_lang)
+) ENGINE=" . _MYSQL_ENGINE_ . " DEFAULT CHARSET=utf8mb4;
+";
+
 foreach ($sql as $query) {
-    Db::getInstance()->execute($query);
+    $result &= Db::getInstance()->execute($query);
 }
