@@ -45,20 +45,33 @@ Una vez iniciado el contenedor:
     - usuario: `demo@prestashop.com`
     - password: `prestashop_demo`
 
-## 🔐 Credenciales de base de datos (Docker)
-
-- Database server: `db`
-- Database name: `prestashop`
-- Database user: `root`
-- Database password: `root`
-
-| En caso de instalación manual desde el instalador web de PrestaShop, usar estos datos.
-
 ## 🧩 Instalación del módulo
 1. Entrar al backoffice
 2. Ir a “Módulos” → “Gestor de módulos”
 3. Buscar "Product Badges"
+
+![alt text](image.png)
+
 4. Click en instalar
+
+5. Aparecerá el nuevo módulo en el menú
+
+![alt text](image-1.png)
+
+6. Añadir una nueva etiqueta rellenando los campos y guardar
+
+![alt text](image-2.png)
+![alt text](image-3.png)
+
+7. Entrar en la edición de cualquier producto, buscar el módulo "Product Badges", configurarlo con las etiquetas creadas y guardarlo.
+
+![alt text](image-4.png)
+![alt text](image-5.png)
+
+8. En el front del producto aparecerán las etiquetas customizadas
+
+![alt text](image-7.png)
+![alt text](image-6.png)
 
 ## ⚙️ Funcionalidad del módulo
 
@@ -82,4 +95,4 @@ Ver archivo `IA.md` para detalle del uso de IA y errores detectados.
 
 ## 👤 Autor
 
-Leticia (prueba técnica Product Badges - PrestaShop Developer Task)
+Leticia González Álvarez (prueba técnica Product Badges - PrestaShop Developer Task)
