@@ -50,28 +50,28 @@ Una vez iniciado el contenedor:
 2. Ir a “Módulos” → “Gestor de módulos”
 3. Buscar "Product Badges"
 
-![alt text](image.png)
+![alt text](images/image.png)
 
 4. Click en instalar
 
 5. Aparecerá el nuevo módulo en el menú
 
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
 6. Añadir una nueva etiqueta rellenando los campos y guardar
 
-![alt text](image-2.png)
-![alt text](image-3.png)
+![alt text](images/image-2.png)
+![alt text](images/image-3.png)
 
 7. Entrar en la edición de cualquier producto, buscar el módulo "Product Badges", configurarlo con las etiquetas creadas y guardarlo.
 
-![alt text](image-4.png)
-![alt text](image-5.png)
+![alt text](images/image-4.png)
+![alt text](images/image-5.png)
 
 8. En el front del producto aparecerán las etiquetas customizadas
 
-![alt text](image-7.png)
-![alt text](image-6.png)
+![alt text](images/image-7.png)
+![alt text](images/image-6.png)
 
 ## ⚙️ Funcionalidad del módulo
 
