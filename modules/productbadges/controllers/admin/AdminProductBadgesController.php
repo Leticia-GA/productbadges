@@ -13,6 +13,9 @@ class AdminProductBadgesController extends ModuleAdminController
         $this->addRowAction('delete');
 
         parent::__construct();
+
+        $this->lang = true;
+        $this->langTable = 'product_badge_lang';
     }
 
     public function renderList()

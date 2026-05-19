@@ -24,7 +24,7 @@
                         border-radius: 4px;
                         display:inline-block;
                     ">
-                        {l s='Badge #%s' sprintf=[$badge.id_badge|intval] mod='productbadges'}
+                        {$badge.text|escape:'html':'UTF-8'}
                     </span>
 
                 </label>

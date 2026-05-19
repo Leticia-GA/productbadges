@@ -12,6 +12,7 @@ class ProductBadge extends ObjectModel
     public static $definition = [
         'table' => 'product_badge',
         'primary' => 'id_badge',
+        'multilang' => true,
         'fields' => [
             'active' => [
                 'type' => self::TYPE_BOOL,

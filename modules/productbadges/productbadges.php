@@ -89,10 +89,14 @@ class ProductBadges extends Module
     {
         $idProduct = (int)$params['id_product'];
 
+        $idLang = (int)$this->context->language->id;
+
         $badges = Db::getInstance()->executeS('
-            SELECT *
-            FROM ' . _DB_PREFIX_ . 'product_badge
-            WHERE active = 1
+            SELECT b.*, COALESCE(bl.text, b.id_badge) as text
+            FROM ' . _DB_PREFIX_ . 'product_badge b
+            LEFT JOIN ' . _DB_PREFIX_ . 'product_badge_lang bl
+                ON b.id_badge = bl.id_badge AND bl.id_lang = ' . $idLang . '
+            WHERE b.active = 1
         ');
 
         $rows = Db::getInstance()->executeS('
