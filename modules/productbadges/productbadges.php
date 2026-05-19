@@ -23,11 +23,27 @@ class ProductBadges extends Module
 
     public function install()
     {
-        return parent::install();
+        return parent::install()
+            && $this->installDB();
+    }
+
+    private function installDB()
+    {
+        include dirname(__FILE__) . '/sql/install.php';
+
+        return true;
     }
 
     public function uninstall()
     {
-        return parent::uninstall();
+        return parent::uninstall()
+            && $this->uninstallDB();
+    }
+
+    private function uninstallDB()
+    {
+        include dirname(__FILE__) . '/sql/uninstall.php';
+
+        return true;
     }
 }
