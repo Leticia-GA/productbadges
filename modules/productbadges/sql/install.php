@@ -20,7 +20,7 @@ $sql[] = "CREATE TABLE IF NOT EXISTS `" . _DB_PREFIX_ . "product_badges` (
 ) ENGINE=" . _MYSQL_ENGINE_ . " DEFAULT CHARSET=utf8mb4;
 ";
 
-$sql[] = "CREATE TABLE IF NOT EXISTS `" . _DB_PREFIX_ . "product_badges_lang` (
+$sql[] = "CREATE TABLE IF NOT EXISTS `" . _DB_PREFIX_ . "product_badge_lang` (
     `id_badge` INT UNSIGNED NOT NULL,
     `id_lang` INT UNSIGNED NOT NULL,
     `text` VARCHAR(255) NOT NULL,

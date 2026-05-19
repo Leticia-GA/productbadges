@@ -19,20 +19,20 @@ class AdminProductBadgesController extends ModuleAdminController
     {
         $this->fields_list = [
             'id_badge' => [
-                'title' => 'ID',
+                'title' => $this->l('ID'),
                 'class' => 'fixed-width-xs',
             ],
             'bg_color' => [
-                'title' => 'Background color',
+                'title' => $this->l('Background color'),
             ],
             'text_color' => [
-                'title' => 'Text color',
+                'title' => $this->l('Text color'),
             ],
             'position' => [
-                'title' => 'Position',
+                'title' => $this->l('Position'),
             ],
             'active' => [
-                'title' => 'Active',
+                'title' => $this->l('Active'),
                 'type' => 'bool',
                 'active' => 'status',
             ],
@@ -45,29 +45,29 @@ class AdminProductBadgesController extends ModuleAdminController
     {
         $this->fields_form = [
             'legend' => [
-                'title' => 'Product Badge',
+                'title' => $this->l('Product Badge'),
             ],
             'input' => [
                 [
                     'type' => 'text',
-                    'label' => 'Background color',
+                    'label' => $this->l('Background color'),
                     'name' => 'bg_color',
                     'required' => true,
                 ],
                 [
                     'type' => 'text',
-                    'label' => 'Text color',
+                    'label' => $this->l('Text color'),
                     'name' => 'text_color',
                     'required' => true,
                 ],
                 [
                     'type' => 'select',
-                    'label' => 'Position',
+                    'label' => $this->l('Position'),
                     'name' => 'position',
                     'options' => [
                         'query' => [
-                            ['id' => 'left', 'name' => 'Left'],
-                            ['id' => 'right', 'name' => 'Right'],
+                            ['id' => 'left', 'name' => $this->l('Left')],
+                            ['id' => 'right', 'name' => $this->l('Right')],
                         ],
                         'id' => 'id',
                         'name' => 'name',
@@ -75,23 +75,23 @@ class AdminProductBadgesController extends ModuleAdminController
                 ],
                 [
                     'type' => 'text',
-                    'label' => 'Text',
+                    'label' => $this->l('Text'),
                     'name' => 'text',
                     'lang' => true,
                     'required' => true,
                 ],
                 [
                     'type' => 'switch',
-                    'label' => 'Active',
+                    'label' => $this->l('Active'),
                     'name' => 'active',
                     'values' => [
-                        ['id' => 1, 'value' => 1, 'label' => 'Yes'],
-                        ['id' => 0, 'value' => 0, 'label' => 'No'],
+                        ['id' => 1, 'value' => 1, 'label' => $this->l('Yes')],
+                        ['id' => 0, 'value' => 0, 'label' => $this->l('No')],
                     ],
                 ],
             ],
             'submit' => [
-                'title' => 'Save',
+                'title' => $this->l('Save'),
             ],
         ];
 

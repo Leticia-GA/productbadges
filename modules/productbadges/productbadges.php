@@ -29,6 +29,10 @@ class ProductBadges extends Module
             && $this->installDB()
             && $this->registerHook('displayAdminProductsExtra')
             && $this->registerHook('actionProductSave')
+            && $this->registerHook('displayProductAdditionalInfo')
+            && $this->registerHook('displayProductListReviews')
+            && $this->registerHook('displayHome')
+            && $this->registerHook('header')
             && $this->installTab();
     }
 
@@ -42,7 +46,8 @@ class ProductBadges extends Module
     public function uninstall()
     {
         return parent::uninstall()
-            && $this->uninstallDB();
+            && $this->uninstallDB()
+            && $this->uninstallTab();
     }
 
     private function uninstallDB()
@@ -65,6 +70,19 @@ class ProductBadges extends Module
         }
 
         return $tab->add();
+    }
+
+    private function uninstallTab()
+    {
+        $idTab = (int) Tab::getIdFromClassName('AdminProductBadges');
+
+        if (!$idTab) {
+            return true;
+        }
+
+        $tab = new Tab($idTab);
+
+        return $tab->delete();
     }
 
     public function hookDisplayAdminProductsExtra($params)
@@ -114,6 +132,101 @@ class ProductBadges extends Module
                 'id_product' => (int)$idProduct,
                 'id_badge' => (int)$idBadge,
             ]);
+        }
+    }
+
+    private function getProductBadges($idProduct)
+    {
+        return Db::getInstance()->executeS('
+            SELECT b.*, bl.text
+            FROM ' . _DB_PREFIX_ . 'product_badge b
+            INNER JOIN ' . _DB_PREFIX_ . 'product_badges pb
+                ON pb.id_badge = b.id_badge
+            LEFT JOIN ' . _DB_PREFIX_ . 'product_badge_lang bl
+                ON b.id_badge = bl.id_badge AND bl.id_lang = ' . (int) $this->context->language->id . '
+            WHERE pb.id_product = ' . (int)$idProduct . '
+            AND b.active = 1
+        ');
+    }
+
+    public function hookDisplayProductAdditionalInfo($params)
+    {
+        $idProduct = (int)$params['product']['id_product'];
+
+        $badges = $this->getProductBadges($idProduct);
+
+        $this->context->smarty->assign([
+            'badges' => $badges,
+        ]);
+
+        return $this->display(
+            __FILE__,
+            'views/templates/hook/product_badges.tpl'
+        );
+    }
+
+    public function getContent()
+    {
+        Tools::redirectAdmin($this->context->link->getAdminLink('AdminProductBadges'));
+    }
+
+    public function hookDisplayProductListReviews($params)
+    {
+        $idProduct = (int)$params['product']['id_product'];
+
+        $badges = $this->getProductBadges($idProduct);
+
+        if (empty($badges)) {
+            return '';
+        }
+
+        $this->context->smarty->assign([
+            'badges' => $badges,
+        ]);
+
+        return $this->display(
+            __FILE__,
+            'views/templates/hook/product_badges.tpl'
+        );
+    }
+
+    public function hookDisplayHome($params)
+    {
+        $badges = [];
+
+        if (!empty($params['product']['id_product'])) {
+            $badges = $this->getProductBadges((int)$params['product']['id_product']);
+        }
+
+        if (empty($badges)) {
+            return '';
+        }
+
+        $this->context->smarty->assign([
+            'badges' => $badges,
+        ]);
+
+        return $this->display(
+            __FILE__,
+            'views/templates/hook/product_badges.tpl'
+        );
+    }
+
+    public function hookHeader()
+    {
+        if ($this->context->controller instanceof ProductController
+            || $this->context->controller instanceof CategoryController
+            || $this->context->controller instanceof SearchController
+            || $this->context->controller instanceof IndexController
+        ) {
+            $this->context->controller->registerStylesheet(
+                'module-productbadges',
+                'modules/' . $this->name . '/views/css/productbadges.css',
+                [
+                    'media' => 'all',
+                    'priority' => 150,
+                ]
+            );
         }
     }
 }

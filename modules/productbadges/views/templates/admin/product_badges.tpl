@@ -1,5 +1,5 @@
 <div class="panel">
-    <h3>Product Badges</h3>
+    <h3>{l s='Product Badges' mod='productbadges'}</h3>
 
     {if $badges|count}
 
@@ -24,7 +24,7 @@
                         border-radius: 4px;
                         display:inline-block;
                     ">
-                        Badge #{$badge.id_badge|intval}
+                        {l s='Badge #%s' sprintf=[$badge.id_badge|intval] mod='productbadges'}
                     </span>
 
                 </label>
@@ -34,7 +34,7 @@
 
     {else}
 
-        <p>No badges available.</p>
+        <p>{l s='No badges available.' mod='productbadges'}</p>
 
     {/if}
 </div>
