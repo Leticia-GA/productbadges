@@ -27,7 +27,8 @@ class ProductBadges extends Module
     {
         return parent::install()
             && $this->installDB()
-            && $this->registerHook('displayHeader')
+            && $this->registerHook('displayAdminProductsExtra')
+            && $this->registerHook('actionProductSave')
             && $this->installTab();
     }
 
@@ -64,5 +65,38 @@ class ProductBadges extends Module
         }
 
         return $tab->add();
+    }
+
+    public function hookDisplayAdminProductsExtra($params)
+    {
+        $idProduct = (int)Tools::getValue('id_product');
+
+        return '<div class="panel">
+                    <h3>Product Badges WORKING</h3>
+                    Product ID: ' . $idProduct . '
+                </div>';
+    }
+
+    public function hookActionProductSave($params)
+    {
+        $idProduct = (int)$params['id_product'];
+
+        if (!Tools::isSubmit('submitProductBadges')) {
+            return;
+        }
+
+        $selected = Tools::getValue('badges', []);
+
+        Db::getInstance()->delete(
+            'product_badge',
+            'id_product = ' . (int)$idProduct
+        );
+
+        foreach ($selected as $idBadge) {
+            Db::getInstance()->insert('product_badge', [
+                'id_product' => (int)$idProduct,
+                'id_badge' => (int)$idBadge,
+            ]);
+        }
     }
 }
